@@ -129,7 +129,7 @@ cc_library(
 
 cc_library(
     name = "jni_util",
-    srcs = (["jni_util.cc"]),
+    srcs = (["jni_util.cc"] + ["@local_jdk//:jni_header", "@local_jdk//:jni_md_header-darwin"]),
     hdrs = (["jni_util.h"]),
     deps = [
         "@com_google_absl//absl/synchronization",
@@ -140,4 +140,5 @@ cc_library(
         "//mediapipe:android": [
         ],
     }),
+    includes = ["external/local_jdk/include", "external/local_jdk/include/darwin"],
 )
