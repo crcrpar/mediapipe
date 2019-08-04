@@ -14,6 +14,33 @@
 
 licenses(["notice"])  # Apache 2.0
 
+load("@aar_with_jni//:aar_with_jni.bzl", "aar_with_jni")
+
+aar_with_jni(
+    name = "mediapipe_aar",
+    android_library = ":mediapipe",
+)
+
+android_library(
+    name = "mediapipe",
+    manifest = "AndroidManifest.xml",
+    custom_package = "com.google.mediapipe",
+    srcs = ["java/com/google/mediapipe/**/*.java"],
+    deps = ["//mediapipe/java/com/google/mediapipe/framework:jni"],
+)
+
+cc_library(
+    name = "mediapipe_cc_library",
+    srcs = [
+        "*.cc"
+        # ":calculators/**/*.cc",
+        # ":framework/**/*.cc",
+        # ":gpu/**/*.cc",
+        # ":graphs/**/*.cc",
+        # ":util/**/*.cc",
+    ]
+)
+
 config_setting(
     name = "android",
     values = {"crosstool_top": "//external:android/crosstool"},
